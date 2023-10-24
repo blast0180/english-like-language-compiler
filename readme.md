@@ -3,6 +3,7 @@
 ## Steps to Run
 
 ```
+$ chmod +x build.sh
 $ ./build.sh
 $ ./parser input.txt
 ```
@@ -17,24 +18,46 @@ $ ./parser input.txt
 - Contains `lexer.l` and `parser.y` files.
 - The `parser.y` file contains the grammar in BNF notation where the given stream of characters in `input.txt` is verified against.
 - The lexer returns the type of token in the input file to the parser.
-- The parser and the lexer have a shared variable `yylval` which holds the associated value of a particular token, it can be as simple as an integer or an index poining to the symbol table.
+- The parser and the lexer have a shared variable, `yylval` which holds the associated value of a particular token. It can be as simple as an integer or an index pointing to the symbol table.
 
 ### symbol_table
 
 - Contains implementation of symbol table and its associated functions.
-- The index in the symbol table for a particular token is determined by running the name of the token through a hash function.
+- The index in the symbol table for a particular token is determined by running the token's name through a hash function.
 - Hash collisions are handled by linear probing.
 
 ### AST (Abstract Syntax Tree)
 
-- Contains blueprints for different types of nodes (VERB, NOUN, ADWORD).
+- Contains blueprints for different types of nodes (`VERB`, `NOUN`, `ADWORD`).
 - Functions for constructing nodes to aid in building the AST.
 
 ### graph
 
-- Implemetation for drawing the AST.
+- Implementation for drawing the AST.
 - Given the root-node of the AST, a neat visualization of the AST is printed on the terminal.
-- This is a modifed version of the [source code](https://www.epaperpress.com/lexandyacc/calcg.html) by Frank Thomas Braun.
+- This is a modified version of the [source code](https://www.epaperpress.com/lexandyacc/calcg.html) by Frank Thomas Braun.
+
+## What is happening?
+
+- The lexer can recognize and return these 7 types of lexemes.
+  1. `NOUNS` - Words starting with an uppercase letter and without numbers.
+  2. `VERBS` - Words containing at least one number.
+  3. `ADWORDS` - Lowercase alphabet words.
+  4. `PUNCTUATIONS` - ., ?, !
+  5. `NUMBERS` - Numerical characters only.
+  6. `PREPOSITIONS` - Words starting with '@'.
+
+- If a lexeme matches any of the above 7, it is put into the symbol table.
+
+- The grammar recognized by the parser is 
+  1. `NOUN VERB NOUN PUNCTUATION` - Second `NOUN` is optional.
+  2. `ADWORD NOUN ADWORD VERB ADWORD NOUN PUNCTUATION` - All `ADWORDS` are optional.
+
+- The parser generates an LALR parser, which tries to make sense of the stream of characters in the input file to match the grammar described in BNF form.
+
+- There is an on-the-fly generation of syntax tree nodes, and if everything is correct, the root node is created finally.
+
+- The root node is passed to the graph-code, which visualizes the structure of it by printing it on the terminal.
 
 ## Example
 
