@@ -160,3 +160,9 @@ Parse Failed
 ```
 
 - This one contains two adwords together.
+
+## Challenges Faced
+
+- Writing the grammar was not hard, but it required prior knowledge of Lex and Yacc, handling all cases, and adequately including all the headers.
+- Designing the AST node blueprints was challenging; structurally, the nodes in the AST are of all different sub-types linked together.
+- The source code for drawing the graph was originally written for a different kind of node structure, so it took a lot of work to debug. It was hard to pinpoint precisely in which module there was a bug, so I had to test all the modules while switching off some. It also required fine-tuning some parameters to print a neatly spaced structure of the AST.
