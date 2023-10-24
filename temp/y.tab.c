@@ -449,9 +449,9 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  2
+#define YYFINAL  8
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   15
+#define YYLAST   17
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  9
@@ -460,7 +460,7 @@ union yyalloc
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  12
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  19
+#define YYNSTATES  20
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   263
@@ -553,8 +553,8 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -4,     0,    -4,     4,     3,    -4,     7,    -4,     6,    -3,
-      -4,     8,     2,    -4,    -4,    -4,     9,    -4,    -4
+       5,     6,     3,     0,    -4,     9,    -4,     8,    -4,    -4,
+      -3,    -4,    10,     2,    -4,    -4,    -4,    11,    -4,    -4
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -562,20 +562,20 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       3,     0,     1,     5,     0,     2,     0,     6,     7,     0,
-       8,     0,     0,     9,     4,    10,     0,    11,    12
+       0,     5,     0,     0,     3,     0,     6,     7,     1,     2,
+       0,     8,     0,     0,     9,     4,    10,     0,    11,    12
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -4,    -4,    -4,    -4,    -4
+      -4,    -4,    12,    -4,    -4
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     1,     5,     6,    14
+       0,     3,     4,     5,    15
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -583,22 +583,22 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       2,    11,    12,    13,     3,     4,    16,     8,    17,     7,
-       9,    10,     0,     0,    15,    18
+       8,    12,    13,    14,     1,     2,    17,     7,    18,     1,
+       2,     6,    10,    11,     0,     9,    16,    19
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,     4,     5,     6,     4,     5,     4,     4,     6,     5,
-       3,     5,    -1,    -1,     6,     6
+       0,     4,     5,     6,     4,     5,     4,     4,     6,     4,
+       5,     5,     3,     5,    -1,     3,     6,     6
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    10,     0,     4,     5,    11,    12,     5,     4,     3,
-       5,     4,     5,     6,    13,     6,     4,     6,     6
+       0,     4,     5,    10,    11,    12,     5,     4,     0,    11,
+       3,     5,     4,     5,     6,    13,     6,     4,     6,     6
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
@@ -611,7 +611,7 @@ static const yytype_int8 yyr1[] =
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     2,     0,     3,     1,     2,     2,     3,     1,
+       0,     2,     2,     1,     3,     1,     2,     2,     3,     1,
        2,     2,     3
 };
 
@@ -1081,62 +1081,68 @@ yyreduce:
 #line 1082 "temp/y.tab.c"
     break;
 
+  case 3: /* A: B  */
+#line 29 "analyzer/parser.y"
+      {ex((yyvsp[0].node_ptr)); free_node((yyvsp[0].node_ptr));}
+#line 1088 "temp/y.tab.c"
+    break;
+
   case 4: /* B: C VERB D  */
 #line 32 "analyzer/parser.y"
              {(yyval.node_ptr) = verb(symbol_table[(yyvsp[-1].sym_idx)].name, (yyvsp[-2].node_ptr), (yyvsp[0].node_ptr));}
-#line 1088 "temp/y.tab.c"
+#line 1094 "temp/y.tab.c"
     break;
 
   case 5: /* C: NOUN  */
 #line 35 "analyzer/parser.y"
          {(yyval.node_ptr) = noun(symbol_table[(yyvsp[0].sym_idx)].name, NULL, NULL);}
-#line 1094 "temp/y.tab.c"
+#line 1100 "temp/y.tab.c"
     break;
 
   case 6: /* C: NOUN ADWORD  */
 #line 36 "analyzer/parser.y"
                 {(yyval.node_ptr) = adword(symbol_table[(yyvsp[0].sym_idx)].name, noun(symbol_table[(yyvsp[-1].sym_idx)].name, NULL, NULL), NULL);}
-#line 1100 "temp/y.tab.c"
+#line 1106 "temp/y.tab.c"
     break;
 
   case 7: /* C: ADWORD NOUN  */
 #line 37 "analyzer/parser.y"
                 {(yyval.node_ptr) = noun(symbol_table[(yyvsp[0].sym_idx)].name, adword(symbol_table[(yyvsp[-1].sym_idx)].name, NULL, NULL), NULL);}
-#line 1106 "temp/y.tab.c"
+#line 1112 "temp/y.tab.c"
     break;
 
   case 8: /* C: ADWORD NOUN ADWORD  */
 #line 38 "analyzer/parser.y"
                        {(yyval.node_ptr) = adword(symbol_table[(yyvsp[0].sym_idx)].name, noun(symbol_table[(yyvsp[-1].sym_idx)].name, adword(symbol_table[(yyvsp[-2].sym_idx)].name, NULL, NULL), NULL), NULL);}
-#line 1112 "temp/y.tab.c"
+#line 1118 "temp/y.tab.c"
     break;
 
   case 9: /* D: PUNCTUATION  */
 #line 41 "analyzer/parser.y"
                 {(yyval.node_ptr) = NULL;}
-#line 1118 "temp/y.tab.c"
+#line 1124 "temp/y.tab.c"
     break;
 
   case 10: /* D: NOUN PUNCTUATION  */
 #line 42 "analyzer/parser.y"
                      {(yyval.node_ptr) = noun(symbol_table[(yyvsp[-1].sym_idx)].name, NULL, NULL);}
-#line 1124 "temp/y.tab.c"
+#line 1130 "temp/y.tab.c"
     break;
 
   case 11: /* D: ADWORD PUNCTUATION  */
 #line 43 "analyzer/parser.y"
                        {(yyval.node_ptr) = adword(symbol_table[(yyvsp[-1].sym_idx)].name, NULL, NULL);}
-#line 1130 "temp/y.tab.c"
+#line 1136 "temp/y.tab.c"
     break;
 
   case 12: /* D: ADWORD NOUN PUNCTUATION  */
 #line 44 "analyzer/parser.y"
                             {(yyval.node_ptr) = noun(symbol_table[(yyvsp[-1].sym_idx)].name, adword(symbol_table[(yyvsp[-2].sym_idx)].name, NULL, NULL), NULL);}
-#line 1136 "temp/y.tab.c"
+#line 1142 "temp/y.tab.c"
     break;
 
 
-#line 1140 "temp/y.tab.c"
+#line 1146 "temp/y.tab.c"
 
       default: break;
     }
@@ -1333,7 +1339,7 @@ yyreturnlab:
 
 
 void yyerror() {
-    printf("Error\n");
+    printf("Parse Failed\n");
     exit(0);
 }
 

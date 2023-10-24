@@ -27,7 +27,6 @@ typedef struct {
 
 typedef struct node_type_tag {
     node_enum type;
-
     union {
         verb_node_type verb;
         noun_node_type noun;

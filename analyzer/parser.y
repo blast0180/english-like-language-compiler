@@ -26,7 +26,7 @@ extern FILE* yyin;
 %%
 
 A : A B {ex($2); free_node($2);}
-  |
+  | B {ex($1); free_node($1);}
   ;
 
 B : C VERB D {$$ = verb(symbol_table[$2].name, $1, $3);}
@@ -47,7 +47,7 @@ D : PUNCTUATION {$$ = NULL;}
 %%
 
 void yyerror() {
-    printf("Error\n");
+    printf("Parse Failed\n");
     exit(0);
 }
 
