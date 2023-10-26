@@ -8,8 +8,11 @@ $ ./build.sh
 $ ./parser input.txt
 ```
 
+**_NOTE:_** If you get errors, you may need to change the encoding from CRLF to LF. `$ dos2unix build.sh` and `$ dos2unix input.txt`.
+
 - The shell script compiles the source code and outputs an executable `parser`
 - `parser` then can be run against the stream of characters inside `input.txt`.
+
 
 ## Project Structure
 
